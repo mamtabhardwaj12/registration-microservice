@@ -1,5 +1,5 @@
 {
-    "connectionString" : "mongodb://127.0.0.1:27017/login",
+    "connectionString" : "mongodb://registration-microservice:27017/login",
     "secret": "akshaymamtavinishgiridowhatyouwanthahahahaha",
     "port" : "8081"
 }
