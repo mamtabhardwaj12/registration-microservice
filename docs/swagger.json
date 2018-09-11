@@ -1,0 +1,139 @@
+{
+    "info": {
+        "version": "V1.0",
+        "description": "## Authentication\n\nAuthenticate requests by including an Authorization header.  For example:\n\n```bash\ncurl 'http://localhost:8081/api/register' -H \"Authorization: Bearer <auth token>\"\n```\n\n## Generate Token\nTo retrieve an auth token, POST a username/password combination to /api/register.  For example:\n\n```bash\ncurl -X POST 'http://localhost:8081/api/register' -d \"username=USERNAME&password=PASSWORD\"\n```\n\n",
+        "title": "Registration Microservice V0.1 API Docs"
+    },
+    "paths": {
+        "/api/getUser": {
+            "post": {
+                "security": [
+                    {
+                        "oauth2": [
+                            "rw:Registration"
+                        ]
+                    }
+                ],
+                "summary": "Get account details.",
+                "responses": {
+                    "201": {
+                        "description": "Successfully created",
+                        "schema": {
+                            
+                        }
+                    },
+                    "400": {
+                        "description": "Validation error"
+                    }
+                },
+                "parameters": [
+                    {
+                        "schema": {
+                            "$ref": "#/definitions/GetData"
+                        },
+                        "required": true,
+                        "description":"Here you can get the user data.",
+                        "name": "body",
+                        "in": "body"
+                    }
+                ],
+                "tags": [
+                    "Registration"
+                ]
+            }
+        },
+        "/api/register": {
+            "post": {
+                "security": [
+                    {
+                        "oauth2": [
+                            "rw:Registration"
+                        ]
+                    }
+                ],
+                "summary": "Create a new Account",
+                "responses": {
+                    "201": {
+                        "description": "Successfully created",
+                        "schema": {
+                            "$ref": "#/definitions/Registration"
+                        }
+                    },
+                    "400": {
+                        "description": "Validation error"
+                    }
+                },
+                "parameters": [
+                    {
+                        "schema": {
+                            "$ref": "#/definitions/Registration"
+                        },
+                        "required": true,
+                        "description":"Here you can create the new account.",
+                        "name": "body",
+                        "in": "body"
+                    }
+                ],
+                "tags": [
+                    "Registration"
+                ]
+            }
+        }
+    },
+    "parameters": {},
+    "tags": [],
+    "securityDefinitions": {
+        "oauth2": {
+            "flow": "authorizationCode",
+            "tokenUrl": "/o/token/",
+            "type": "oauth2",
+            "authorizationUrl": "/docs/oauth2/authorize",
+            "scopes": {
+                "r:Registration": "List assertions in a User's Backpack"
+            }
+        }
+    },
+    "definitions": {
+        "Registration": {
+            "required": [],
+            "properties": {
+                "appName": {
+                    "type": "string",
+                    "description": "appName",
+                    "format": "string"
+                },
+                "username": {
+                    "type": "string",
+                    "description": "username",
+                    "format": "string"
+                },
+                "password": {
+                    "type": "string",
+                    "description": "password",
+                    "format": "string"
+                }
+            }
+        },
+        "GetData": {
+            "required": [],
+            "properties": {
+                "appName": {
+                    "type": "string",
+                    "description": "appName",
+                    "format": "string"
+                },
+                "username": {
+                    "type": "string",
+                    "description": "username",
+                    "format": "string"
+                }
+            }
+        }
+    },
+    "security": [
+        {
+            "oauth2": []
+        }
+    ],
+    "swagger": "2.0"
+}
